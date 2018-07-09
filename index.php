@@ -11,13 +11,14 @@ $bot = new LINEBot($httpClient, ['channelSecret' => getenv('LINEBOT_CHANNEL_SECR
 $sign = $_SERVER["HTTP_" . HTTPHeader::LINE_SIGNATURE];
 $events = $bot->parseEventRequest(file_get_contents('php://input'), $sign);
 
-error_log(2222222222);
+$inputString = file_get_contents('php://input');
+
+error_log($inputString);
 
 foreach ($events as $event) {
   if (!($event instanceof \LINE\LINEBot\Event\MessageEvent) ||
     !($event instanceof \LINE\LINEBot\Event\MessageEvent\TextMessage)) {
     continue;
   }
-  error_log($event->getText());
   $bot->replyText($event->getReplyToken(), $event->getText());
 }
