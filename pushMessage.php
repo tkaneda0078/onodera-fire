@@ -5,7 +5,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 // use \LINE\LINEBot;
 use \LINE\LINEBot\HTTPClient\CurlHTTPClient;
 use \LINE\LINEBot\Constant\HTTPHeader;
-use \Controller;
+use \Controller\LineBotController;
 
 $httpClient = new CurlHTTPClient(getenv('LINE_CHANNEL_ACCESS_TOKEN'));
 $bot = new LineBotController($httpClient, ['channelSecret' => getenv('LINE_CHANNEL_SECRET')]);
