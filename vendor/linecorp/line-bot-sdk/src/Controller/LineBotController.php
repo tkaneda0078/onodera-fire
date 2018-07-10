@@ -4,7 +4,8 @@
  * 
  */
 
-namespace Controller;
+namespace LINE\Controller;
+
 use LINE\LINEBot;
 
 /**
