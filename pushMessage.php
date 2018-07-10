@@ -2,14 +2,15 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-use \LINE\LINEBot;
+// use \LINE\LINEBot;
 use \LINE\LINEBot\HTTPClient\CurlHTTPClient;
 use \LINE\LINEBot\Constant\HTTPHeader;
+use \Controller;
 
 $httpClient = new CurlHTTPClient(getenv('LINE_CHANNEL_ACCESS_TOKEN'));
-$bot = new LINEBot($httpClient, ['channelSecret' => getenv('LINE_CHANNEL_SECRET')]);
+$bot = new LineBotController($httpClient, ['channelSecret' => getenv('LINE_CHANNEL_SECRET')]);
 
-$pushMessage = 'push onodera';
+$pushMessage = $bot->getPushMessage();
 
 $response = $bot->pushMessage(getenv('LINE_USER_ID'), new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($pushMessage));
 
