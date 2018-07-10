@@ -26,6 +26,11 @@ class LineBotController extends LINEBot
    */
   public function getPushMessage()
   {
-    return 'test';
+    $nowTime = strtotime(date('H:i:s'));
+    if ($nowTime > strtotime('17:00:00') && $nowTime < strtotime('18:00:00')) {
+      return 'soumen';
+    } else {
+      return 'test ssdfs';
+    }
   }
 }

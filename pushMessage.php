@@ -6,6 +6,8 @@ use \LINE\LINEBot\HTTPClient\CurlHTTPClient;
 use \LINE\LINEBot\Constant\HTTPHeader;
 use \LINE\Controller\LineBotController;
 
+date_default_timezone_set('Asia/Tokyo');
+
 $httpClient = new CurlHTTPClient(getenv('LINE_CHANNEL_ACCESS_TOKEN'));
 $bot = new LineBotController($httpClient, ['channelSecret' => getenv('LINE_CHANNEL_SECRET')]);
 
