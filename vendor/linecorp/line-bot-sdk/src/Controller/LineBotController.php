@@ -22,15 +22,60 @@ class LineBotController extends LINEBot
   /**
    * push messageを取得する
    *
-   * @return string $message
+   * @return [string] push message
    */
   public function getPushMessage()
   {
-    $nowTime = strtotime(date('H:i:s'));
-    if ($nowTime > strtotime('17:00:00') && $nowTime < strtotime('18:00:00')) {
-      return 'soumen';
-    } else {
-      return 'test ssdfs';
-    }
+    $timeZone = $this->getTimeZone();
+
+    return $this->getMessage($timeZone);
   }
+
+  /**
+   * 何の時間帯か取得する
+   *
+   * @return [string] $timeZone
+   * @todo 時間帯の見直し
+   */
+  private function getTimeZone()
+  {
+    $nowTime = intval(date('H'));
+
+    $timeZone = '';
+    switch ($nowTime) {
+      case 9:
+        $timeZone = 'morning';
+        break;
+      case 12:
+        $timeZone = 'lunch';
+        break;
+      case 15:
+        $timeZone = 'tea';
+        break;
+      case 14:
+      case 17:
+      case 18:
+        $timeZone = 'praise';
+        break;
+      default:
+        break;
+    }
+
+    return $timeZone;
+  }
+
+  /**
+   * pushするメッセージ内容を取得する
+   *
+   * @param [string] $timeZone
+   * @return [string] $message
+   * @todo メッセージ一覧をconfigで定義する
+   */
+  private function getMessage($timeZone)
+  {
+    $message = $timeZone . ' よいしょ';
+
+    return $message;
+  }
+
 }
