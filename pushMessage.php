@@ -2,16 +2,16 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 
+use \LINE\LINEBot;
 use \LINE\LINEBot\HTTPClient\CurlHTTPClient;
 use \LINE\LINEBot\Constant\HTTPHeader;
-use \LINE\Controller\LineBotController;
-
-date_default_timezone_set('Asia/Tokyo');
+use LineBotController;
 
 $httpClient = new CurlHTTPClient(getenv('LINE_CHANNEL_ACCESS_TOKEN'));
-$bot = new LineBotController($httpClient, ['channelSecret' => getenv('LINE_CHANNEL_SECRET')]);
+$bot = new LINEBot($httpClient, ['channelSecret' => getenv('LINE_CHANNEL_SECRET')]);
 
-$pushMessage = $bot->getPushMessage();
+$lineCtrl = new LineBotController();
+$pushMessage = $lineCtrl->getPushMessage();
 
 $response = $bot->pushMessage(getenv('LINE_USER_ID'), new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($pushMessage));
 

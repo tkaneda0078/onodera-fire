@@ -1,35 +1,47 @@
 <?php
 
 /**
- * 
+ * LINE BOT用Controller
  */
 
-namespace LINE\Controller;
-
-use LINE\LINEBot;
-
-/**
- * LINE BOT用
- */
-class LineBotController extends LINEBot
+class LineBotController
 {
+  /**
+   * pushメッセージ一覧
+   *
+   * @var [array]
+   */
+  protected $messageList;
 
-  public function __construct($httpClient, array $args)
+
+  /**
+   * pushメッセージ内容
+   *
+   * @var [string]
+   */
+  protected $pushMessage;
+
+
+  public function __construct()
   {
-    parent::__construct($httpClient, $args);
+    date_default_timezone_set('Asia/Tokyo');
+    // pushメッセージ一覧を読み込む
+    $this->messageList = require_once('messageList.php');
   }
 
   /**
-   * push messageを取得する
+   * pushメッセージを取得する
    *
    * @return [string] push message
    */
   public function getPushMessage()
   {
     $timeZone = $this->getTimeZone();
-
-    return $this->getMessage($timeZone);
+    $this->setPushMessage($timeZone);
+    
+    return $this->pushMessage;
   }
+
 
   /**
    * 何の時間帯か取得する
@@ -39,6 +51,7 @@ class LineBotController extends LINEBot
    */
   private function getTimeZone()
   {
+
     $nowTime = intval(date('H'));
 
     $timeZone = '';
@@ -50,6 +63,7 @@ class LineBotController extends LINEBot
         $timeZone = 'lunch';
         break;
       case 15:
+      case 23:
         $timeZone = 'tea';
         break;
       case 14:
@@ -64,18 +78,16 @@ class LineBotController extends LINEBot
     return $timeZone;
   }
 
+
   /**
-   * pushするメッセージ内容を取得する
+   * pushメッセージ内容を取得する
    *
    * @param [string] $timeZone
-   * @return [string] $message
-   * @todo メッセージ一覧をconfigで定義する
+   * @return [string] $pushMessage
    */
-  private function getMessage($timeZone)
+  private function setPushMessage($timeZone)
   {
-    $message = $timeZone . ' よいしょ';
-
-    return $message;
+    return $this->pushMessage = $this->messageList[$timeZone];
   }
 
 }
