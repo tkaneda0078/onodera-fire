@@ -26,7 +26,7 @@ class LineBotController
   {
     date_default_timezone_set('Asia/Tokyo');
     // pushメッセージ一覧を読み込む
-    $this->messageList = require_once __DIR__ . 'messageList.php';
+    $this->messageList = require_once __DIR__ . '/messageList.php';
   }
 
   /**
