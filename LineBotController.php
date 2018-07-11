@@ -4,6 +4,8 @@
  * LINE BOT用Controller
  */
 
+namespace LineBotController;
+
 class LineBotController
 {
   /**
