@@ -63,12 +63,12 @@ class LineBotController
         $timeZone = 'lunch';
         break;
       case 15:
-      case 23:
         $timeZone = 'tea';
+      case 18:
+        $timeZone = 'dinner';
         break;
       case 14:
       case 17:
-      case 18:
         $timeZone = 'praise';
         break;
       default:
